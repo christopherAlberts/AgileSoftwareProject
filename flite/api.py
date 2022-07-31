@@ -15,7 +15,7 @@ def direct_destinations():
 
     for destination in destinations.data:
         code = (destination["iataCode"])
-        enhanced_destinations.extend([a for a in cursor.execute(f"""
+        results = [a for a in cursor.execute(f"""
                                                         SELECT
                                                             iata_code,
                                                             name,
@@ -23,6 +23,14 @@ def direct_destinations():
                                                             country,
                                                             lat_decimal,
                                                             lon_decimal
-                                                        FROM airports WHERE iata_code =:code""", {"code": code})])    
+                                                        FROM airports WHERE iata_code =:code LIMIT 1""", {"code": code})]
+        if len(results) > 0 :
+            enhanced_destinations.append(
+                {
+                    "id": results[0][0],
+                    "title": results[0][1],
+                    "geometry": { "type": "Point", "coordinates": [results[0][4], results[0][5]] }
+                }
+            )
     
     return json.dumps(enhanced_destinations), 200
