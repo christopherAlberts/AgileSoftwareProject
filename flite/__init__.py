@@ -9,7 +9,7 @@ amadeus = Client(
     client_secret=os.getenv("AMADEUS_CLIENT_SECRET")
 )
 
-airports_db = sqlite3.connect("global_airports_sqlite.db")
+airports_db = sqlite3.connect("global_airports_sqlite.db", check_same_thread=False)
 cursor = airports_db.cursor()
 
 def close_db(e=None):
