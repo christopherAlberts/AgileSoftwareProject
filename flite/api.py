@@ -34,3 +34,68 @@ def direct_destinations():
             )
     
     return json.dumps(enhanced_destinations), 200
+
+
+@bluprint.route('/ticket-prices', methods=['GET'])
+def ticket_prices():
+
+    clientId = request.args.get('clientId')
+    clientSecret = request.args.get('clientSecret')
+    originalLocation = request.args.get('originalLocation')
+    destinationLocation = request.args.get('destinationLocation')
+    date = request.args.get('date')
+
+
+    amadeus = Client(
+        client_id = clientId,
+        client_secret = clientSecret
+    )
+
+    try:
+        response = amadeus.shopping.flight_offers_search.get(
+            originLocationCode = originalLocation,
+            destinationLocationCode = destinationLocation,
+            departureDate = date,
+            adults=1)
+
+        # Receive data from Amadeus API
+        full_json_data = response.data
+
+        # Clean data
+        cleanData = clean(full_json_data)
+
+        # Returning the cleaned data.
+        return cleanData
+
+    except ResponseError as error:
+        print(error)
+        return error
+
+
+def clean(jsonData):
+
+    # Building new clean array
+    price_data_arr = []
+
+    for i in jsonData:
+
+        clean_object = {
+            "id": i["id"],
+            "numberOfBookableSeats": i["numberOfBookableSeats"],
+            "currency": i["price"]["currency"],
+            "total": i["price"]["total"],
+            "base": i["price"]["base"],
+            "currency": i["price"]["currency"],
+            "cabin": i["travelerPricings"][0]["fareDetailsBySegment"][0]["cabin"]
+            # "additionalServices" : i["price"]["additionalServices"]
+        }
+
+        price_data_arr.append(clean_object)
+
+    # Building new clean data object.
+    cleanData = {
+        "num_of_entries":len(jsonData),
+        "price_data" : price_data_arr
+    }
+
+    return cleanData
