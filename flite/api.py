@@ -45,12 +45,6 @@ def ticket_prices():
     destinationLocation = request.args.get('destinationLocation')
     date = request.args.get('date')
 
-
-    amadeus = Client(
-        client_id = clientId,
-        client_secret = clientSecret
-    )
-
     try:
         response = amadeus.shopping.flight_offers_search.get(
             originLocationCode = originalLocation,
