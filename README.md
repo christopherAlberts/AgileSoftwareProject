@@ -2,6 +2,7 @@
 AgileSoftwareProject
 
 #Setup
+
 cd to you working directory
 
 > cd to-your-working-directory
