@@ -1,11 +1,12 @@
+from amadeus import ResponseError
 from flask import Blueprint
 from . import amadeus, cursor
 from flask import request
 import json
 
-bluprint = Blueprint('app', __name__, url_prefix='/app')
+blueprint = Blueprint('app', __name__, url_prefix='/app')
 
-@bluprint.route('/direct-destinations', methods=['GET'])
+@blueprint.route('/direct-destinations', methods=['GET'])
 def direct_destinations():
     origin = request.args.get('origin')
     max = request.args.get('max')
@@ -36,7 +37,7 @@ def direct_destinations():
     return json.dumps(enhanced_destinations), 200
 
 
-@bluprint.route('/ticket-prices', methods=['GET'])
+@blueprint.route('/ticket-prices', methods=['GET'])
 def ticket_prices():
 
     clientId = request.args.get('clientId')

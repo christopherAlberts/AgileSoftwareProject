@@ -5,8 +5,11 @@ from amadeus import Client, ResponseError
 import sqlite3
 
 amadeus = Client(
-    client_id=os.getenv("AMADEUS_CLIENT_ID"),
-    client_secret=os.getenv("AMADEUS_CLIENT_SECRET")
+    # client_id=os.getenv("AMADEUS_CLIENT_ID"),
+    # client_secret=os.getenv("AMADEUS_CLIENT_SECRET")
+
+    client_id = 'WpuO7TVd3Kiq3qqx2GBP02r5DUcGRtSQ',
+    client_secret = 'KWjVnuVCynkGFhq8'
 )
 
 airports_db = sqlite3.connect("global_airports_sqlite.db", check_same_thread=False)
@@ -36,8 +39,8 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import app
-    app.register_blueprint(app.bluprint)
+    from . import api
+    app.register_blueprint(api.blueprint)
 
     app.teardown_appcontext(close_db)
     return app
