@@ -28,3 +28,14 @@ set up the flask env variables
 run 
 
 >flask run
+
+## Eample URL:
+
+### Page1:
+
+> http://127.0.0.1:5000/api/direct-destinations?origin=NRT&max=50
+
+### Page2:
+
+> http://127.0.0.1:5000/api/ticket-prices?originalLocation=NRT&destinationLocation=LAX&date=2022-11-01
+
