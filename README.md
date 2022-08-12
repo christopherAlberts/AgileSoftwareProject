@@ -25,4 +25,6 @@ set up the flask env variables
 
 > set FLASK_APP=flite
 
-run flask run
+run 
+
+>flask run
