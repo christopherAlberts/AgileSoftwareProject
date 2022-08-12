@@ -36,8 +36,8 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import api
-    app.register_blueprint(api.bluprint)
+    from . import app
+    app.register_blueprint(app.bluprint)
 
     app.teardown_appcontext(close_db)
     return app

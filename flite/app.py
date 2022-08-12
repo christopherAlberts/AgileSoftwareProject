@@ -3,7 +3,7 @@ from . import amadeus, cursor
 from flask import request
 import json
 
-bluprint = Blueprint('api', __name__, url_prefix='/api')
+bluprint = Blueprint('app', __name__, url_prefix='/app')
 
 @bluprint.route('/direct-destinations', methods=['GET'])
 def direct_destinations():
