@@ -4,7 +4,7 @@ from . import amadeus, cursor
 from flask import request
 import json
 
-blueprint = Blueprint('app', __name__, url_prefix='/app')
+blueprint = Blueprint('api', __name__, url_prefix='/api')
 
 @blueprint.route('/direct-destinations', methods=['GET'])
 def direct_destinations():
@@ -40,8 +40,6 @@ def direct_destinations():
 @blueprint.route('/ticket-prices', methods=['GET'])
 def ticket_prices():
 
-    clientId = request.args.get('clientId')
-    clientSecret = request.args.get('clientSecret')
     originalLocation = request.args.get('originalLocation')
     destinationLocation = request.args.get('destinationLocation')
     date = request.args.get('date')
