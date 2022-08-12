@@ -1,7 +1,7 @@
 # AgileSoftwareProject
 AgileSoftwareProject
 
-#Setup
+## Setup
 
 cd to you working directory
 
