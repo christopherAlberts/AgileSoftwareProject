@@ -1,0 +1,17 @@
+<html>
+    <body>
+        {{api_response}}
+    </body>
+
+    <script>
+        const api_url = "/flight_tracking"
+        function fetch_test(){
+          setInterval(async function (){
+            const response =  await fetch(api_url);
+            document.body.innerHTML = await response.text();
+        }, 5000);
+      }
+
+      fetch_test();
+    </script>
+</html>
