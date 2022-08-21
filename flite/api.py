@@ -1,18 +1,23 @@
 from amadeus import ResponseError
 from flask import Blueprint
-from . import amadeus, cursor
+from . import amadeus
 from flask import request
 import json
+import sqlite3
 
 blueprint = Blueprint('api', __name__, url_prefix='/api')
 
 @blueprint.route('/direct-destinations', methods=['GET'])
 def direct_destinations():
+    airports_db = sqlite3.connect("global_airports_sqlite.db", check_same_thread=False)
+    cursor = airports_db.cursor()
+
     origin = request.args.get('origin')
     max = request.args.get('max')
 
     destinations = amadeus.airport.direct_destinations.get(departureAirportCode=origin, max=max)
     enhanced_destinations = []
+    ids = []
 
     for destination in destinations.data:
         code = (destination["iataCode"])
@@ -33,8 +38,31 @@ def direct_destinations():
                     "geometry": { "type": "Point", "coordinates": [results[0][4], results[0][5]] }
                 }
             )
+            ids.append(results[0][0])
+
+
+    origins = [a for a in cursor.execute(f"""
+                                                        SELECT
+                                                            iata_code,
+                                                            name,
+                                                            city,
+                                                            country,
+                                                            lat_decimal,
+                                                            lon_decimal
+                                                        FROM airports WHERE iata_code =:code LIMIT 1""", {"code": origin})]
+    enhanced_origin = [{ 
+            "id": origins[0][0],
+            "title": origins[0][1],
+            "destinations": ids,
+            "geometry": { "type": "Point", "coordinates": [origins[0][4], origins[0][5]] },
+            "zoomLevel": 2.74,
+            "zoomPoint": { "longitude": origins[0][4], "latitude": origins[0][5] }
+        }]
+
+    repsonse = {"origin": enhanced_origin, "destinations": enhanced_destinations}
     
-    return json.dumps(enhanced_destinations), 200
+    return json.dumps(repsonse), 200
+
 
 
 @blueprint.route('/ticket-prices', methods=['GET'])

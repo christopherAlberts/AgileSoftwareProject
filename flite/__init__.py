@@ -12,12 +12,6 @@ amadeus = Client(
     client_secret = 'KWjVnuVCynkGFhq8'
 )
 
-airports_db = sqlite3.connect("global_airports_sqlite.db", check_same_thread=False)
-cursor = airports_db.cursor()
-
-def close_db(e=None):
-    airports_db.close()
-
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -42,5 +36,4 @@ def create_app(test_config=None):
     from . import api
     app.register_blueprint(api.blueprint)
 
-    app.teardown_appcontext(close_db)
     return app
