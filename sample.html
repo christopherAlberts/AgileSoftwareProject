@@ -1,0 +1,32 @@
+<html>
+    <label>Please input the IATA airport code</label>
+    <input id="search_input"></input>
+    <button id="search_button">search</button>
+</html>
+
+<script>    
+
+    let originData;
+    let destinationsData;
+    const read_data = async () => {
+        
+        const origin = searchInput.value;
+        const url = `http://127.0.0.1:5000/api/direct-destinations?origin=${origin}&max=20`
+        const response = await fetch(url);
+        if (response.ok) {
+            const jsonValue = await response.json();
+            console.log(jsonValue)
+            originData = jsonValue["origin"]
+            destinationsData = jsonValue["destinations"]
+            return Promise.resolve(jsonValue);
+            
+        } else {
+            return Promise.reject("Page not found");
+        }
+
+    };
+
+    const searchButton = document.getElementById("search_button");
+    const searchInput = document.getElementById("search_input");
+    searchButton.addEventListener("click", read_data);
+</script>
