@@ -1,8 +1,8 @@
 import os
 
 from flask import Flask
-from amadeus import Client, ResponseError
-import sqlite3
+from amadeus import Client
+from flask_cors import CORS
 
 amadeus = Client(
     # client_id=os.getenv("AMADEUS_CLIENT_ID"),
@@ -35,5 +35,6 @@ def create_app(test_config=None):
 
     from . import api
     app.register_blueprint(api.blueprint)
+    CORS(app)
 
     return app

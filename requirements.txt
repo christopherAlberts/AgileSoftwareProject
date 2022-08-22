@@ -19,3 +19,4 @@ setuptools~=63.1.0
 Cython~=0.29.30
 future~=0.18.2
 cursor~=1.3.5
+Flask-Cors==3.0.10
