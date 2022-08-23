@@ -1,6 +1,10 @@
 <html>
     <body>
-        {{api_response["states"]}}
+       <!WGS-84 longitude in decimal degrees>
+      {% for i in api_response["states"] %}
+        longitude: {{i[5]}} 
+        latitude: {{i[6]}}
+      {% endfor %}
     </body>
 
     <script>
