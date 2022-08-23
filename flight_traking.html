@@ -9,7 +9,7 @@
 
     <script>
      // api refreshes every 30 seconds
-        const api_url = "/flight_tracking"
+        const api_url = "http://127.0.0.1:5000/api/flight_tracking"
         function fetch_test(){
           setInterval(async function (){
             const response =  await fetch(api_url);
