@@ -122,11 +122,24 @@ def clean(jsonData):
     return cleanData
 
 @blueprint.route('/flight_tracking', methods=['GET'])
-
 def flight_tracking():
+    Data = []
     api_base = 'https://opensky-network.org/api/states/all'
     api_result = requests.get(api_base)
     api_response = api_result.json()
-    return render_template('flight_traking.html', api_response = api_response)
+    for i in api_response["states"]:
+        val = {
+        "Flight": i[1].strip(),
+        "longitude": i[5], 
+        "latitude" : i[6]
+        }
+        Data.append(val)
+    return json.dumps(Data)
+
+#def flight_tracking():
+#    api_base = 'https://opensky-network.org/api/states/all'
+#    api_result = requests.get(api_base)
+#    api_response = api_result.json()
+#    return render_template('flight_traking.html', api_response = api_response)
 
 # https://airlabs.co/api/v9/flights?_view=array&_fields=flight_icao,dir,alt,lat,lng&api_key=4544a3e6-d52c-476c-b565-0b0b22fcd05a
