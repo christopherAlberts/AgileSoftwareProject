@@ -55,7 +55,7 @@ def direct_destinations():
             "title": origins[0][1],
             "geometry": { "type": "Point", "coordinates": [origins[0][4], origins[0][5]] },
             "zoomLevel": 2.74,
-            "zoomPoint": { "longitude": origins[0][4], "latitude": origins[0][5] }
+            "zoomPoint": { "latitude": origins[0][4], "lon_decimal": origins[0][5] }
         }]
 
     repsonse = {"origin": enhanced_origin, "destinations": enhanced_destinations, "destionations_were_in_origins":ids}
