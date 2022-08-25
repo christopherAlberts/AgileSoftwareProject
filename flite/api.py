@@ -27,8 +27,8 @@ def direct_destinations():
                                                             name,
                                                             city,
                                                             country,
-                                                            lat_decimal,
-                                                            lon_decimal
+                                                            lon_decimal,
+                                                            lat_decimal
                                                         FROM airports WHERE iata_code =:code LIMIT 1""", {"code": code})]
         if len(results) > 0 :
             enhanced_destinations.append(
