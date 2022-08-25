@@ -53,13 +53,12 @@ def direct_destinations():
     enhanced_origin = [{ 
             "id": origins[0][0],
             "title": origins[0][1],
-            "destinations": ids,
             "geometry": { "type": "Point", "coordinates": [origins[0][4], origins[0][5]] },
             "zoomLevel": 2.74,
             "zoomPoint": { "longitude": origins[0][4], "latitude": origins[0][5] }
         }]
 
-    repsonse = {"origin": enhanced_origin, "destinations": enhanced_destinations}
+    repsonse = {"origin": enhanced_origin, "destinations": enhanced_destinations, "destionations_were_in_origins":ids}
     
     return json.dumps(repsonse), 200
 
