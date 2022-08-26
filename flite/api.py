@@ -4,6 +4,7 @@ from . import amadeus
 from flask import request
 import json
 import sqlite3
+import requests
 
 blueprint = Blueprint('api', __name__, url_prefix='/api')
 
