@@ -39,3 +39,5 @@ run
 
 > http://127.0.0.1:5000/api/ticket-prices?originalLocation=NRT&destinationLocation=LAX&date=2022-11-01
 
+## Testing
+> pytest
