@@ -48,15 +48,15 @@ def direct_destinations():
                                                             name,
                                                             city,
                                                             country,
-                                                            lat_decimal,
-                                                            lon_decimal
+                                                            lon_decimal,
+                                                            lat_decimal
                                                         FROM airports WHERE iata_code =:code LIMIT 1""", {"code": origin})]
     enhanced_origin = [{ 
             "id": origins[0][0],
             "title": origins[0][1],
             "geometry": { "type": "Point", "coordinates": [origins[0][4], origins[0][5]] },
             "zoomLevel": 2.74,
-            "zoomPoint": { "latitude": origins[0][4], "lon_decimal": origins[0][5] }
+            "zoomPoint": { "lon_decimal": origins[0][5], "latitude": origins[0][4]}
         }]
 
     repsonse = {"origin": enhanced_origin, "destinations": enhanced_destinations, "destionations_were_in_origins":ids}
