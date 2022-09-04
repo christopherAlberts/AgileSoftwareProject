@@ -121,7 +121,7 @@ def clean(jsonData):
 
     return cleanData
 
-@blueprint.route('/flight_tracking', methods=['GET'])
+#@blueprint.route('/flight_tracking', methods=['GET'])
 def flight_tracking():
     Data = []
     api_base = 'https://opensky-network.org/api/states/all'
@@ -136,10 +136,21 @@ def flight_tracking():
         Data.append(val)
     return json.dumps(Data)
 
+
+# Use this function if opensky api return 502 Bad Gateway
+
+#@blueprint.route('/flight_tracking', methods=['GET'])
 #def flight_tracking():
-#    api_base = 'https://opensky-network.org/api/states/all'
+#    Data = []
+#    api_base = 'https://airlabs.co/api/v9/flights?_view=array&_fields=flight_icao,lat,lng&api_key=4cd4f95a-451c-4f43-9dc1-bef9e1251b56'
 #    api_result = requests.get(api_base)
 #    api_response = api_result.json()
-#    return render_template('flight_traking.html', api_response = api_response)
+#    for i in api_response:
+#        val = {
+#        "Flight": i[0],
+#        "latitude" : i[1],
+#        "longitude": i[2]
+#        }
+#        Data.append(val)
+#    return json.dumps(Data)
 
-# https://airlabs.co/api/v9/flights?_view=array&_fields=flight_icao,dir,alt,lat,lng&api_key=4544a3e6-d52c-476c-b565-0b0b22fcd05a
