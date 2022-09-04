@@ -121,7 +121,7 @@ def clean(jsonData):
 
     return cleanData
 
-#@blueprint.route('/flight_tracking', methods=['GET'])
+@blueprint.route('/flight_tracking', methods=['GET'])
 def flight_tracking():
     Data = []
     api_base = 'https://opensky-network.org/api/states/all'
